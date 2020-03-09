@@ -28,5 +28,4 @@
 	<tx:annotation-driven />
 	
 	
-	
 </beans:beans>

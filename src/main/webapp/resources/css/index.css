@@ -1,0 +1,50 @@
+.banner{
+    background-color: white;
+    width: 100%;
+    z-index: 100;
+}
+.resv{
+	text-align: center;
+   width: 100%;
+   position: absolute;
+   top: 20%;
+   font-size: 80px;
+   color: beige;
+   margin: 0;
+}
+/* 로고 관련 스타일  */
+.banner a{
+    text-decoration: none;
+    font-size: 40px;
+    font-family: fantasy;
+    font-weight: bold;
+    margin: 14px;
+    position: absolute;
+}
+.banner a:link{
+	color : black;
+}
+.banner a:active{
+	color : black;
+}
+.banner a:visited{
+	color : black;
+}
+
+#logo_div{
+	height: 80px;
+    width: 160px;
+}
+
+#admin_div{
+    height: 80px;
+    width: 270px;
+    margin-left: auto;
+    margin-right: 25px;
+}
+#login_div{
+	height: 80px;
+    width: 140px;
+    margin-right: 10px;
+}
+

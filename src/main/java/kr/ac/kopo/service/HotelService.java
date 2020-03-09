@@ -1,8 +1,11 @@
 package kr.ac.kopo.service;
 
+import java.util.Date;
 import java.util.List;
 
+import kr.ac.kopo.domain.HotelRIO;
 import kr.ac.kopo.dto.HotelSIO;
+import kr.ac.kopo.dto.ListSIO;
 
 public interface HotelService {
 	
@@ -13,16 +16,15 @@ public interface HotelService {
 	public void insert (HotelSIO hotelSIO) throws Exception;	//DB정보를 토대로 데이터 삽입
 	
 	//read
-	public HotelSIO selectOne(int studentid) throws Exception;		//해당 학번 하나 출력
-	public List<HotelSIO> selectAll() throws Exception; 		//전체 출력
+	public HotelSIO selectOne(String resv_date,int room) throws Exception;		//해당 학번 하나 출력
+	public List<ListSIO> selectAll_status() throws Exception; 		//전체 출력
+	public List<ListSIO> admin_selectAll_status() throws Exception; 		//전체 출력(관리자 페이지)
 	public List<HotelSIO> selectAllByName(String name) throws Exception;//이름 기반 출력
+	public List<HotelSIO> check_rooms(String resv_date) throws Exception;
 	
 	//update
-	public void update (int studentid, HotelSIO hotelSIO) throws Exception;	//해당 매개변수 해당 데이터 업데이트
-	public void update (HotelSIO hotelSIO) throws Exception;	//전체 업데이트 
+	public void update (String resv_date,int room,HotelSIO hotelSIO) throws Exception;	//해당 매개변수 해당 데이터 업데이트
 	
 	//delete
-	public void delete(int studentid) throws Exception;	//학번 기반 데이터 삭제 
-	public void delete(HotelSIO hotelSIO) throws Exception;	//매개변수 기반 데이터 삭제
-
+	public void delete(String resv_date,int room) throws Exception;	//학번 기반 데이터 삭제 
 }

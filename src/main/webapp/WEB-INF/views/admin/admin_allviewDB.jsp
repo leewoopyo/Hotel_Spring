@@ -13,7 +13,7 @@
 <body>
 	
 <section style="text-align: center; margin-bottom: 100px;">
-	<h3 style="font-family: sans-serif;font-size: xx-large; margin: 15px;">전체 예약 현황</h3>
+	<h3 style="font-family: sans-serif;font-size: xx-large; margin: 15px;">관리자 페이지 (전체 예약 현황)</h3>
 	<hr style="border-width: 2px; border-color: black;">
 		<!-- 전체 리스트가 출력되는 테이블 생성   -->
 		<table id="status" cellspacing=1 border=2px>
@@ -29,7 +29,7 @@
 			<!-- 그렇지 않다면 foreach문으로 list를 출력한다.  -->
 			<!-- 학번과 이름쪽엔 a태그로 링크를 걸어주는대, URL의 뒤쪽은 파라메터 이름이다.  -->
 			<c:choose>
-				<c:when test="${empty list}">
+				<c:when test="${empty admin_list}">
 					<tr>
 						<td colspan=3>
 							<spring:message code="common.listEmpty"/>
@@ -37,7 +37,7 @@
 					</tr>
 				</c:when>
 				<c:otherwise>
-					<c:forEach items="${list}" var="e" begin="0" end="30" step="1" varStatus="status">
+					<c:forEach items="${admin_list}" var="e" begin="0" end="30" step="1" varStatus="status">
 						<tr> 
 							<td width=50><p name="date" align=center>${status.index+1}.${e.date}(${e.dayOfWeek})</p></td>
 							<c:choose>
@@ -45,7 +45,7 @@
 									<td width=50><p align=center><a href="./go_insertDB?resv_date=${e.date}&room=1">${e.room1}</a></p></td>
 								</c:when>
 								<c:otherwise>
-									<td width=50><p align=center><a class="reserved">${e.room1}</a></p></td>
+									<td width=50><p align=center><a class="reserved" href="./go_selectoneDB?resv_date=${e.date}&room=1">${e.room1}</a></p></td>
 								</c:otherwise>
 							</c:choose>
 							<c:choose>
@@ -53,7 +53,7 @@
 									<td width=50><p align=center><a href="./go_insertDB?resv_date=${e.date}&room=2">${e.room2}</a></p></td>
 								</c:when>
 								<c:otherwise>
-									<td width=50><p align=center><a class="reserved">${e.room2}</a></p></td>
+									<td width=50><p align=center><a class="reserved" href="./go_selectoneDB?resv_date=${e.date}&room=2">${e.room2}</a></p></td>
 								</c:otherwise>
 							</c:choose>
 							<c:choose>
@@ -61,7 +61,7 @@
 									<td width=50><p align=center><a href="./go_insertDB?resv_date=${e.date}&room=3">${e.room3}</a></p></td>
 								</c:when>
 								<c:otherwise>
-									<td width=50><p align=center><a class="reserved">${e.room3}</a></p></td>
+									<td width=50><p align=center><a class="reserved" href="./go_selectoneDB?resv_date=${e.date}&room=3">${e.room3}</a></p></td>
 								</c:otherwise>
 							</c:choose>
 						</tr>
@@ -70,9 +70,7 @@
 			</c:choose>
 		</table>
 </section>
-	
-	
-	
+
 <script src="${pageContext.request.contextPath}/resources/js/allviewDB.js"></script>
 </body>
 </html>

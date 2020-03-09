@@ -4,16 +4,19 @@ import java.sql.Statement;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.internal.SessionImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.ac.kopo.domain.HotelRIO;
+import kr.ac.kopo.domain.HotelRIO_Idclass;
 
 @Transactional
 @Repository
@@ -22,7 +25,7 @@ public class HotelRepoImpl implements HotelRepo {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	private static final Logger logger = LoggerFactory.getLogger(ExamRepoImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(HotelRepoImpl.class);
 
 	private Session getSession() {
 		logger.info("getSession().start");
@@ -44,15 +47,18 @@ public class HotelRepoImpl implements HotelRepo {
 	}
 
 	@Override
-	public HotelRIO selectOne(Date resv_date, int room) {
-		// TODO Auto-generated method stub
-		return null;
+	public HotelRIO selectOne(String resv_date, int room) {
+		String hql = "From HotelRIO e where e.resv_date = '" + resv_date + "' and e.room = " + room;
+		Query query = getSession().createQuery(hql);
+		return (HotelRIO) query.uniqueResult();
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<HotelRIO> selectAll() {
-		// TODO Auto-generated method stub
-		return null;
+		String hql = "from HotelRIO";
+		Query query = getSession().createQuery(hql);
+		return query.list();	
 	}
 
 	@Override
@@ -63,20 +69,45 @@ public class HotelRepoImpl implements HotelRepo {
 
 	@Override
 	public void createOne(HotelRIO hotel) {
-		// TODO Auto-generated method stub
-		
+		getSession().saveOrUpdate(hotel);
 	}
 
 	@Override
-	public void updateOne(HotelRIO hotel) {
-		// TODO Auto-generated method stub
+	public void updateOne(String resv_date,int room, HotelRIO hotel) {
+		/* "update Stock set stockName = :stockName where stockCode = :stockCode" */
+		String hql = "update HotelRIO e set "
+				+ "e.name = :name, "
+				+ "e.resv_date = :resv_date, "
+				+ "e.room = :room, "
+				+ "e.addr = :addr, "
+				+ "e.telnum = :telnum, "
+				+ "e.in_name = :in_name, "
+				+ "e.comment = :comment, "
+				+ "e.write_date = :write_date, "
+				+ "e.processing = :processing "
+				+ "where e.resv_date = '" + resv_date + "' and e.room = " + room;
 		
+		Query query = getSession().createQuery(hql);
+		
+		query.setParameter("name", hotel.getName());
+		query.setParameter("resv_date", hotel.getResv_date());
+		query.setParameter("room", hotel.getRoom());
+		query.setParameter("addr", hotel.getAddr());
+		query.setParameter("telnum", hotel.getTelnum());
+		query.setParameter("in_name", hotel.getIn_name());
+		query.setParameter("comment", hotel.getComment());
+		query.setParameter("write_date", hotel.getWrite_date());
+		query.setParameter("processing", hotel.getProcessing());
+		
+		query.executeUpdate();
 	}
 
 	@Override
-	public void daleteOne(HotelRIO hotel) {
-		// TODO Auto-generated method stub
-		
+	public void daleteOne(String resv_date,int room) {
+		String hql = "delete from HotelRIO e "
+				+ "where e.resv_date = '" + resv_date + "' and e.room = " + room;
+		Query query = getSession().createQuery(hql);
+		query.executeUpdate();
 	}
 
 	@Override

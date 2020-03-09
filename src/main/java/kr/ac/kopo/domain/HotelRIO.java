@@ -18,7 +18,6 @@ public class HotelRIO {
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)
 
-
 	@Column(name = "name")
 	private String name;
 	
@@ -51,6 +50,12 @@ public class HotelRIO {
 	@Column(name = "processing")
 	private int processing;
 
+	
+	public HotelRIO() {
+		super();
+	}
+	
+	
 	public HotelRIO(String name, Date resv_date, int room, String addr, String telnum, String in_name, String comment,
 			Date write_date, int processing) {
 		super();

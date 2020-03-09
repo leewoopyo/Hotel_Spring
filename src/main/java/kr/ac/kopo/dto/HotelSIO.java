@@ -14,6 +14,10 @@ public class HotelSIO {
 	private Date write_date;
 	private int processing;
 	
+	public HotelSIO() {
+		super();
+	}
+	
 	public HotelSIO(String name, Date resv_date, int room, String addr, String telnum, String in_name, String comment,
 			Date write_date, int processing) {
 		super();

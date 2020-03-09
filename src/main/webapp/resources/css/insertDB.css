@@ -1,0 +1,105 @@
+.input_section{
+			display:flex;
+		}
+		.validation{
+			    color: red;
+			    font-size: 20px;
+			    font-weight: bold;
+			    font-family: sans-serif;
+			    margin-top: 13px;
+		}
+		.imagebox{
+			margin : 10px;
+		}
+		.radio_check{
+			font-size:28px;
+		}
+		input[type=radio] {
+		    border: 0px;
+			width: 10%;
+		    height: 1.5em;
+		}
+		input[type=text]{
+			border-radius: 10px;
+    		border-color: black;
+    		width: 200px;
+		    height: 40px;
+		    font-size: 24px;
+		    margin: 5px;
+		    font-family: auto;
+		}
+		input[type=date]{
+			border-radius: 10px;
+    		border-color: black;
+    		width: 200px;
+		    height: 40px;
+		    font-size: 24px;
+		    margin: 5px;
+		    font-family: auto;
+		}
+		input[type=number]{
+			border-radius: 10px;
+    		border-color: black;
+    		width: 200px;
+		    height: 40px;
+		    font-size: 24px;
+		    margin: 5px;
+		    font-family: auto;
+		}
+		p{
+			font-size: 30px;
+   			margin: 5px;
+		}
+		#find_addr{
+			font-size: 20px;
+		    font-family: sans-serif;
+		    font-weight: bold;
+		    border-radius: 10px;
+		    border-color: black;
+		    background-color: powderblue;
+		    width: 150px;
+		    height: 35px;
+		    margin-top: 10px;
+		}
+		#telnum1{
+		    border-radius: 10px;
+		    border-color: black;
+		    width: 65px;
+		    height: 47px;
+		    border-width: 2px;
+		    font-size: 24px;
+		    margin: 5px;
+		    font-family: auto;
+		}
+		#comment{
+			width: 500px; 
+			height: 100px; 
+			resize: none;
+		    border-radius: 10px;
+		    border-color: black;
+		    font-size: 20px;
+		    margin: 5px;
+		    font-family: auto;
+		}
+		#submit_btn{
+			font-size: 20px;
+		    font-family: sans-serif;
+		    font-weight: bold;
+		    border-radius: 10px;
+		    border-color: black;
+		    background-color: powderblue;
+		    width: 150px;
+		    height: 35px;
+		    margin-top: 10px;
+		}
+		.submit_btn{
+			font-size: 20px;
+		    font-family: sans-serif;
+		    font-weight: bold;
+		    border-radius: 10px;
+		    border-color: black;
+		    background-color: powderblue;
+		    width: 150px;
+		    height: 35px;
+		    margin-top: 10px;
+		}

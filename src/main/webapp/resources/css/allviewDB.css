@@ -1,0 +1,26 @@
+#status{
+	width: 80%;
+    margin: auto;
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+#status a{
+	text-decoration: none;
+}
+
+.reserved{
+    font-size: 25px;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin: 14px;
+}
+.reserved:link{
+	color : black;
+}
+.reserved:active{
+	color : black;
+}
+.reserved:visited{
+	color : black;
+}
