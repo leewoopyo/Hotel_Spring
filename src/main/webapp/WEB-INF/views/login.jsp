@@ -39,35 +39,7 @@
 </section>
 
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript">
-	function send_param(){
-
-		 var Params = {                    
-		            "id" : document.getElementById('id').value, 	//아이디
-		            "password" : document.getElementById('password').value 	//비밀번호
-		    };
-
-	    $.ajax({
-	        url         :   "./login_check",
-	        type        :   "get",
-	        data        :   Params,
-	        success     :   function(responsedata){
-		        if(responsedata.message == ''){
-		    		let frm = document.getElementById("post_param");
-		    		frm.submit();
-			    }else{
-				    let message = document.getElementById("message");
-				    message.innerHTML = responsedata.message;
-				    message.style.display = 'block';
-				}
-				
-	        },
-	        error       :   function(request, status, error){
-	            console.log("AJAX_ERROR");
-	        }
-	    });
-	}
-</script>
+<script src="${pageContext.request.contextPath}/resources/js/login.js"></script>
 
 </body>
 </html>

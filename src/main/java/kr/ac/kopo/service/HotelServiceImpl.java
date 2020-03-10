@@ -187,34 +187,8 @@ public class HotelServiceImpl implements HotelService {
 		return list;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@Override
-	public HotelSIO selectOne(String resv_date, int room) throws Exception {
-		HotelRIO hotel = null;
-		try {
-			hotel = repo.selectOne(resv_date,room);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		// 담은 데이터를 다시 ExamSIO에 담는다.
-		return new HotelSIO(hotel.getName(),hotel.getResv_date(),hotel.getRoom(),hotel.getAddr(),hotel.getTelnum(),hotel.getIn_name(),hotel.getComment().replaceAll("@@개!행!문!자@@", "\n"),hotel.getWrite_date(),hotel.getProcessing());
-	}
-	
-
-
-
-	
-	
-	
-	
+	//selectAll_status()와 완전히 같은 기능이다.
+	//단지, name값을 넣을 때 2번째 문자열의 이름을 수정하지 않는다는 것이다.
 	@Override
 	public List<ListSIO> admin_selectAll_status() throws Exception {
 		
@@ -224,8 +198,6 @@ public class HotelServiceImpl implements HotelService {
 		
 		int dayOfWeek_number = 0;
 		String dayOfWeek = null;
-		
-		
 		
 		List<HotelRIO> list = null;
 		// genelic이 ExamSIO인 list를 하나 선언한다 .
@@ -241,8 +213,6 @@ public class HotelServiceImpl implements HotelService {
 			e.printStackTrace();
 		}
 		
-		// foreach문은 써서 list갯수 만큼 반복하면서 exams에 담겼던 모든 데이터들을 다시 ExamSIO객체를 생성해서 거기에 담아
-		// examScores 리스트에 담는다.
 		for (int i = 0; i < 30; i++) {
 			resv_date = currentDate.plusDays(i).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 			dayOfWeek_number = currentDate.plusDays(i).getDayOfWeek().getValue();
@@ -286,28 +256,37 @@ public class HotelServiceImpl implements HotelService {
 			}	
 			hotellist.add(new ListSIO(resv_date,dayOfWeek,room1,room2,room3));
 		}
-		
 		// 리스트를 리턴한다.
 		return hotellist;
 	}
+	
+	//예약일과 방 정보를 매개변수로 하여 일치하는 데이터를 출력하는 메소드
+	@Override
+	public HotelSIO selectOne(String resv_date, int room) throws Exception {
+		//데이터를 담을 HptelRIO형의 데이터를 생성
+		HotelRIO hotel = null;
+		//레포지토리에서 함수를 실행해서 해당 데이터를 받음 
+		try {
+			hotel = repo.selectOne(resv_date,room);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// 담은 데이터를 HotelSIO 형태로 반환한다.
+		return new HotelSIO(hotel.getName(),hotel.getResv_date(),hotel.getRoom(),hotel.getAddr(),hotel.getTelnum(),hotel.getIn_name(),hotel.getComment().replaceAll("@@개!행!문!자@@", "\n"),hotel.getWrite_date(),hotel.getProcessing());
+	}
 
-
+	//데이터 수정하는 메소드
 	@Override
 	public void update(String resv_date,int room,HotelSIO hotelSIO) throws Exception {
+		//예약일과 방정보를 조건으로 해서 HotelSIO에 담긴 데이터로 수정하는 메소드
 		repo.updateOne(resv_date,room,new HotelRIO(hotelSIO.getName(),hotelSIO.getResv_date(),hotelSIO.getRoom(),hotelSIO.getAddr(),hotelSIO.getTelnum(),hotelSIO.getIn_name(),hotelSIO.getComment(),hotelSIO.getWrite_date(),hotelSIO.getProcessing()));
 		
 	}
-
+	//데이터 삭제하는 메소드
 	@Override
 	public void delete(String resv_date,int room) throws Exception {
+		//예약일과 방정보를 조건으로 해당 데이터 삭제
 		repo.daleteOne(resv_date, room);
 	}
-
-
-
-	
-	
-	
-	
 
 }

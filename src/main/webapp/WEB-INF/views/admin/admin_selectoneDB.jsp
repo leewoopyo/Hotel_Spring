@@ -27,7 +27,6 @@ String onemonth_Later = currentDate.plusDays(29).format(DateTimeFormatter.ofPatt
 
 
 <!-- 화면에 출력되는 부분 -->
-
 <section style="width: 80%; margin: auto; margin-bottom: 100px;">
 	<h2>예약 정보 입력</h2>
 	<hr style="border-width: 2px; border-color: black;">
@@ -114,31 +113,32 @@ String onemonth_Later = currentDate.plusDays(29).format(DateTimeFormatter.ofPatt
 <script src="${pageContext.request.contextPath}/resources/js/insertDB.js"></script>
 
 <script type="text/javascript">
-//room 값을 파라메터로 받았을 때 radio 박스에 그 값을 체크하게 하는 기능
+//페이지 로드 시 각 태그에 맞는 값을 집어넣음
 $( document ).ready(function() {
 	//파라메터 받은 값을 기준으로 value값을 설정해서 넣음
 	//각 태그를 가져옴
-	let name = document.getElementById("name");
-	let resv_date = document.getElementById("resv_date")
-	let room = document.getElementsByName("room");
-
-	let addrArray = '${resv_data.addr}'.split('/') ;
+	let name = document.getElementById("name");	//이름 태그 
+	let resv_date = document.getElementById("resv_date")	//예약일 태그 
+	let room = document.getElementsByName("room");	//방 정보 태그 
+	//주소 태그 --> 예약시 '/'를 기준으로 입력 했었음, 그래서  받은 다음에 /기준으로 나누고, 
+	//해당 태그에 알맞게 값을 넣음
+	let addrArray = '${resv_data.addr}'.split('/') ;	
 	let postcode = document.getElementById("postcode");
 	let roadAddress = document.getElementById("roadAddress");
 	let jibunAddress = document.getElementById("jibunAddress");
 	let extraAddress = document.getElementById("extraAddress");
 	let detailAddress = document.getElementById("detailAddress");
-
+	//전화번호 태그도 '-' 기준으로 값을 나누고 각 태그에 알맞게 값을 넣음
 	let telnumArray = '${resv_data.telnum}'.split('-') ;
 	let telnum1 = document.getElementById("telnum1");
 	let telnum2 = document.getElementById("telnum2");
 	let telnum3 = document.getElementById("telnum3");
 	
-	let in_name = document.getElementById("in_name");
-	let comment = document.getElementById("comment");
+	let in_name = document.getElementById("in_name");	//입금자명	
+	let comment = document.getElementById("comment");	//코멘트
 
-	let param_resv_date = document.getElementById("param_resv_date");
-	let param_room = document.getElementById("param_room");
+	let param_resv_date = document.getElementById("param_resv_date");	//수정전 예약일 
+	let param_room = document.getElementById("param_room");		//수정 전 방 정보
 
 	//이름 value값 넣기
 	name.value = '${resv_data.name}';
@@ -155,13 +155,13 @@ $( document ).ready(function() {
 		}
 	}
 	param_room.value = '${resv_data.room}';
-	//주소 value값 가져오기
+	//주소 value값 가져오기-->split으로 나눈 값을 알맞게 넣음
 	postcode.value = addrArray[0];
 	roadAddress.value = addrArray[1];
 	jibunAddress.value = addrArray[2];
 	extraAddress.value = addrArray[3];
 	detailAddress.value = addrArray[4];
-	//전화번호 value값 가져오기 
+	//전화번호 value값 가져오기 -->split으로 나눈 값을 알맞게 넣음
 	telnum1.value = telnumArray[0];
 	telnum2.value = telnumArray[1];
 	telnum3.value = telnumArray[2];

@@ -26,7 +26,8 @@ public class HotelRepoImpl implements HotelRepo {
 	private SessionFactory sessionFactory;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HotelRepoImpl.class);
-
+	
+	//hibernate 쿼리문을 실행할 sessrion이 필요함
 	private Session getSession() {
 		logger.info("getSession().start");
 		Session ss = null;
@@ -58,17 +59,22 @@ public class HotelRepoImpl implements HotelRepo {
 		//해당 데이터를 insert하는 메소드(saveorupdate)
 		getSession().saveOrUpdate(hotel);
 	}
-
+	
+	//예약일과 방 정보를 매개변수로 해당 데이터를 출력
 	@Override
 	public HotelRIO selectOne(String resv_date, int room) {
+		//쿼리문을 담고
 		String hql = "From HotelRIO e where e.resv_date = '" + resv_date + "' and e.room = " + room;
+		//쿼리문을 실행한다.
 		Query query = getSession().createQuery(hql);
+		//해당 결과를 HotelRIO 형태로 반환한다.
 		return (HotelRIO) query.uniqueResult();
 	}
 	
+	//데이터를 수정하는 메소드
 	@Override
 	public void updateOne(String resv_date,int room, HotelRIO hotel) {
-		/* "update Stock set stockName = :stockName where stockCode = :stockCode" */
+		//해당 조건에서 수정하는  쿼리문을 작성
 		String hql = "update HotelRIO e set "
 				+ "e.name = :name, "
 				+ "e.resv_date = :resv_date, "
@@ -81,8 +87,10 @@ public class HotelRepoImpl implements HotelRepo {
 				+ "e.processing = :processing "
 				+ "where e.resv_date = '" + resv_date + "' and e.room = " + room;
 		
+		//쿼리문의 실행 정보를 담은 query 변수를 만들고
 		Query query = getSession().createQuery(hql);
 		
+		//수정할 값들을 세팅한다.
 		query.setParameter("name", hotel.getName());
 		query.setParameter("resv_date", hotel.getResv_date());
 		query.setParameter("room", hotel.getRoom());
@@ -93,22 +101,22 @@ public class HotelRepoImpl implements HotelRepo {
 		query.setParameter("write_date", hotel.getWrite_date());
 		query.setParameter("processing", hotel.getProcessing());
 		
+		//쿼리문을 실행한다.
 		query.executeUpdate();
 	}
 
+	//예약일과 방 정보를 조건으로 데이터를 삭제하는 메소드
 	@Override
 	public void daleteOne(String resv_date,int room) {
+		//쿼리문을 담고
 		String hql = "delete from HotelRIO e "
 				+ "where e.resv_date = '" + resv_date + "' and e.room = " + room;
+		//쿼리문 실행 정보를 담고 있는 query객체를 생성한다
 		Query query = getSession().createQuery(hql);
+		//쿼리문을 실행
 		query.executeUpdate();
 	}
 
-	@Override
-	public int deleteAll() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public void createDB() {

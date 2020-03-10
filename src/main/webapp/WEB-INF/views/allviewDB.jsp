@@ -25,9 +25,11 @@
 			</tr>
 			<!-- JSTL의 choose태그 로 조건문 실행 -->
 			<!-- 만약 list가 비어있다면 -->
-			<!-- 코드를 출력한다????? -->
+			<!-- 코드를 출력한다 -->
 			<!-- 그렇지 않다면 foreach문으로 list를 출력한다.  -->
-			<!-- 학번과 이름쪽엔 a태그로 링크를 걸어주는대, URL의 뒤쪽은 파라메터 이름이다.  -->
+			<!-- list에 담긴 room1,room2,room3 의 정보를 출력한다. -->
+			<!-- 데이터 조건에 따라서 링크를 걸지 안걸지를 정한다. -->
+			<!-- 데이터가 '선택가능' 이라는 데이터 이면 예약 화면으로 넘어가는 링크를 건다. -->
 			<c:choose>
 				<c:when test="${empty list}">
 					<tr>
@@ -70,8 +72,6 @@
 			</c:choose>
 		</table>
 </section>
-	
-	
 	
 <script src="${pageContext.request.contextPath}/resources/js/allviewDB.js"></script>
 </body>

@@ -12,7 +12,6 @@ public interface HotelRepo {
 	void createOne(HotelRIO hotel);	//DB에 insert하는 함수
 	void updateOne(String resv_date,int room,HotelRIO hotel);
 	void daleteOne(String resv_date,int room);
-	int deleteAll();
 	void createDB();
 	void dropDB();
 

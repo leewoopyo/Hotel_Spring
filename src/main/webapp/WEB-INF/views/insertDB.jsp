@@ -110,9 +110,7 @@ String onemonth_Later = currentDate.plusDays(29).format(DateTimeFormatter.ofPatt
 <script src="${pageContext.request.contextPath}/resources/js/insertDB.js"></script>
 
 <script type="text/javascript">
-
 //room 값을 파라메터로 받았을 때 radio 박스에 그 값을 체크하게 하는 기능
-
 $( document ).ready(function() {
 	let room = document.getElementsByName("room");
 	
