@@ -40,10 +40,23 @@ public class HotelRepoImpl implements HotelRepo {
 		return ss;
 	}
 
+	//전체 데이터를 리스트에 담아서 반환
+	@SuppressWarnings("unchecked")
 	@Override
-	public Long count() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<HotelRIO> selectAll() {
+		//전체 데이터 출력하는 hql문 작성 
+		String hql = "from HotelRIO";
+		//쿼리를 실행하고 그 정보를 Query변수에 담음
+		Query query = getSession().createQuery(hql);
+		//쿼리 클래스의 list함수를 통해 정보를 list형으로 반환
+		return query.list();	
+	}
+	
+	//매개변수로 받은 데이터를 DB에 insert하는 함수
+	@Override
+	public void createOne(HotelRIO hotel) {
+		//해당 데이터를 insert하는 메소드(saveorupdate)
+		getSession().saveOrUpdate(hotel);
 	}
 
 	@Override
@@ -53,25 +66,6 @@ public class HotelRepoImpl implements HotelRepo {
 		return (HotelRIO) query.uniqueResult();
 	}
 	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<HotelRIO> selectAll() {
-		String hql = "from HotelRIO";
-		Query query = getSession().createQuery(hql);
-		return query.list();	
-	}
-
-	@Override
-	public List<HotelRIO> selectAllByPagination(int page, int itemSizePerPage) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void createOne(HotelRIO hotel) {
-		getSession().saveOrUpdate(hotel);
-	}
-
 	@Override
 	public void updateOne(String resv_date,int room, HotelRIO hotel) {
 		/* "update Stock set stockName = :stockName where stockCode = :stockCode" */

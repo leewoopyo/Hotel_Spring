@@ -36,34 +36,12 @@ public class HotelServiceImpl implements HotelService {
 		repo.dropDB();
 		
 	}
-
-	@Override
-	public void allsetDB() throws Exception {
-		// ExamRepo클래스의 insert 메소드를 실행 한다.
-		// 매개변수는 ExamRIO형의 데이터로 DB에 들어갈 데이터들이다.
-	}
-
-	@Override
-	public void insert(HotelSIO hotelSIO) throws Exception {
-		// ExamSIO형의 데이터를 매개변수로 하여 데이터를 삽입한다.
-		repo.createOne(new HotelRIO(hotelSIO.getName(),hotelSIO.getResv_date(),hotelSIO.getRoom(),hotelSIO.getAddr(),hotelSIO.getTelnum(),hotelSIO.getIn_name(),hotelSIO.getComment(),hotelSIO.getWrite_date(),hotelSIO.getProcessing()));
-	}
-
-	@Override
-	public HotelSIO selectOne(String resv_date, int room) throws Exception {
-		HotelRIO hotel = null;
-		try {
-			hotel = repo.selectOne(resv_date,room);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		// 담은 데이터를 다시 ExamSIO에 담는다.
-		return new HotelSIO(hotel.getName(),hotel.getResv_date(),hotel.getRoom(),hotel.getAddr(),hotel.getTelnum(),hotel.getIn_name(),hotel.getComment().replaceAll("@@개!행!문!자@@", "\n"),hotel.getWrite_date(),hotel.getProcessing());
-	}
 	
+	//숫자로 된 요일 값을 문자로 치환하기 위한 변수
 	public String calc_dayOfWeek(int dayOfWeek_number) {
 		String dayOfWeek = null;
-		
+		//localdate에서는 요일이 숫자로 나와서 해당 숫자를 문자로 반환하고 
+		//다시 string형으로 반환한다. 
 		if(dayOfWeek_number == 1) {
 			dayOfWeek = "월";
 		}else if(dayOfWeek_number == 2){
@@ -79,54 +57,67 @@ public class HotelServiceImpl implements HotelService {
 		}else if(dayOfWeek_number == 7){
 			dayOfWeek = "일";
 		}
-		
+		//문자로 치환된 변수를 반환한다.
 		return dayOfWeek;
 	}
-
+	
+	//전체 예약 상황을 표시하는 리스트를 출력하기 위한 메소드
 	@Override
 	public List<ListSIO> selectAll_status() throws Exception {
-		
+		//오늘 날짜 가져옴
 		LocalDate currentDate = LocalDate.now();
-		String resv_date = null;
+		String resv_date = null;	//예약일을 담는 string변수
+		//date형을 string으로 담기 위한 포맷
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		
-		int dayOfWeek_number = 0;
-		String dayOfWeek = null;
+		int dayOfWeek_number = 0;	//숫자로 된 요일을 담는 변수
+		String dayOfWeek = null;	//문자로 된 요일을 담는 변수
 		
-		
-		
+		//레포지토리에서 받을 list생성
 		List<HotelRIO> list = null;
 		// genelic이 ExamSIO인 list를 하나 선언한다 .
 		List<ListSIO> hotellist = new ArrayList<ListSIO>();
-		
+		//30일 동안의 방 상태를 저장하기 위한 변수
 		String room1 = "선택가능";
 		String room2 = "선택가능";
 		String room3 = "선택가능";
 		
+		//list에 DB에서 가져온 전체 데이터를 가져온다.
 		try {
 			list = repo.selectAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		// foreach문은 써서 list갯수 만큼 반복하면서 exams에 담겼던 모든 데이터들을 다시 ExamSIO객체를 생성해서 거기에 담아
-		// examScores 리스트에 담는다.
+		// 예약 상황은 30일 동안 출력하기 때문에 30번을 반복하는 반복문 작성
 		for (int i = 0; i < 30; i++) {
+			//resv_date변수에  오늘부터 시작해서 29일까지 더해서 해당 변수에 담음
 			resv_date = currentDate.plusDays(i).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			//각 일자마다 숫자로된 요일을 담는다. 
 			dayOfWeek_number = currentDate.plusDays(i).getDayOfWeek().getValue();
+			//작성한 함수를 통해 숫자로된 요일을 문자로 치환한다.
 			dayOfWeek = calc_dayOfWeek(dayOfWeek_number);
+			//list에 담았던 전체 데이터를 서비스에 담는다.
 			for(int j = 0; j < list.size(); j++) {
+				//list에 저장된 예약일과 위에서 설정한 30일 동안의 날자와 같은 값이 있나 확인(해당 일자에 예약이 있나 확인)
 				if(resv_date.equals(format.format(list.get(j).getResv_date()))) {
+					//해당 일자에 예약 된 정보가  있으면
+					//그 데이터가 어떤 방 정보를 가지고 있는지 확인
 					if(list.get(j).getRoom() == 1) {
+						//1번 방이라면 해당 데이터의 예약자 이름을 명시해 변수에 저장하고 2번째 글자는 *로 처리
 						room1 = list.get(j).getName().replace(list.get(j).getName().substring(1,2),"*");
+						//해당 데이터가변수에 저장이 되었음면, 다른 변수에 덮으면 안되기 때문에 break한다.
 						break;
 					}else {
+						//만약 해당하는 방 정보가 없으면 이름 대신 '선택가능' 이라는 글자가 나오도록 한다.
 						room1 = "선택가능";
 					}
 				}else {
+					//같은 일자가 없다면 해당 변수는 '선택가능'이라는 글자가 나온다. 
 					room1 = "선택가능";
 				}
-			}	
+			}
+			//해당 for문도 위와 완전이 똑같다. 
 			for(int j = 0; j < list.size(); j++) {
 				if(resv_date.equals(format.format(list.get(j).getResv_date()))) {
 					if(list.get(j).getRoom() == 2) {
@@ -139,7 +130,7 @@ public class HotelServiceImpl implements HotelService {
 					room2 = "선택가능";
 				}
 			}
-			
+			//해당 for문도 위와 완전이 똑같다. 
 			for(int j = 0; j < list.size(); j++) {
 				if(resv_date.equals(format.format(list.get(j).getResv_date()))) {
 					if(list.get(j).getRoom() == 3) {
@@ -152,12 +143,77 @@ public class HotelServiceImpl implements HotelService {
 					room3 = "선택가능";
 				}
 			}	
+				//room1,room2,room3 변수와 날짜, 요일 변수까지 모두 설정이 되었으면 
+				//ListSIO형의 클래스 객체를 만들어 해당 변수들의 값을 넣는다.
+				//해당 작업을 30일까지 반복한다.
+				//ListSIO클래스 예약 상황에 필요한 정보만을 모아둔 클래스이다.
 				hotellist.add(new ListSIO(resv_date,dayOfWeek,room1,room2,room3));
 			}
 		
-		// 리스트를 리턴한다.
+		// 값이 저장된 리스트를 리턴한다.
 		return hotellist;
 	}
+
+	@Override
+	public void insert(HotelSIO hotelSIO) throws Exception {
+		// HotelSIO형의 데이터를 매개변수로 하여 데이터를 삽입한다.
+		repo.createOne(new HotelRIO(hotelSIO.getName(),hotelSIO.getResv_date(),hotelSIO.getRoom(),hotelSIO.getAddr(),hotelSIO.getTelnum(),hotelSIO.getIn_name(),hotelSIO.getComment(),hotelSIO.getWrite_date(),hotelSIO.getProcessing()));
+	}
+
+	@Override
+	public List<HotelSIO> check_rooms(String resv_date) throws Exception {
+		
+		//전체 리스트를 가져올 list생성
+		List<HotelRIO> all_list = null;
+		//원하는 방 정보를 담을 list생성 
+		List<HotelSIO> list = new ArrayList<HotelSIO>();
+		//date형 변수를 비교하기 위해 String형으로 만들기 위한 객체
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		
+		//전체 데이터를 가져오고 
+		try {
+			all_list = repo.selectAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		//매개변수로 받은 예약일에 해당하는 데이터만 다시 list에 담는다.
+		for(int i = 0; i < all_list.size();i ++) {
+			if(resv_date.equals(format.format(all_list.get(i).getResv_date()))) {
+				list.add(new HotelSIO(all_list.get(i).getName(),all_list.get(i).getResv_date(),all_list.get(i).getRoom(),all_list.get(i).getAddr(),all_list.get(i).getTelnum(),all_list.get(i).getIn_name(),all_list.get(i).getComment(),all_list.get(i).getWrite_date(),all_list.get(i).getProcessing()));							
+			}
+		}
+		//해당 리스트 반환
+		return list;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public HotelSIO selectOne(String resv_date, int room) throws Exception {
+		HotelRIO hotel = null;
+		try {
+			hotel = repo.selectOne(resv_date,room);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// 담은 데이터를 다시 ExamSIO에 담는다.
+		return new HotelSIO(hotel.getName(),hotel.getResv_date(),hotel.getRoom(),hotel.getAddr(),hotel.getTelnum(),hotel.getIn_name(),hotel.getComment().replaceAll("@@개!행!문!자@@", "\n"),hotel.getWrite_date(),hotel.getProcessing());
+	}
+	
+
+
+
+	
+	
+	
 	
 	@Override
 	public List<ListSIO> admin_selectAll_status() throws Exception {
@@ -235,11 +291,6 @@ public class HotelServiceImpl implements HotelService {
 		return hotellist;
 	}
 
-	@Override
-	public List<HotelSIO> selectAllByName(String name) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void update(String resv_date,int room,HotelSIO hotelSIO) throws Exception {
@@ -253,26 +304,7 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 
-	@Override
-	public List<HotelSIO> check_rooms(String resv_date) throws Exception {
-		
-		List<HotelRIO> all_list = null;
-		List<HotelSIO> list = new ArrayList<HotelSIO>();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		
-		try {
-			all_list = repo.selectAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		for(int i = 0; i < all_list.size();i ++) {
-			if(resv_date.equals(format.format(all_list.get(i).getResv_date()))) {
-				list.add(new HotelSIO(all_list.get(i).getName(),all_list.get(i).getResv_date(),all_list.get(i).getRoom(),all_list.get(i).getAddr(),all_list.get(i).getTelnum(),all_list.get(i).getIn_name(),all_list.get(i).getComment(),all_list.get(i).getWrite_date(),all_list.get(i).getProcessing()));							
-			}
-		}
-		return list;
-	}
+
 	
 	
 	

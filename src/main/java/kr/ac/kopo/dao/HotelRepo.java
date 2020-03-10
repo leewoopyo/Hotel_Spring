@@ -7,11 +7,9 @@ import kr.ac.kopo.domain.HotelRIO;
 
 public interface HotelRepo {
 	
-	Long count();
 	HotelRIO selectOne(String resv_date, int room);
-	List<HotelRIO> selectAll();
-	List<HotelRIO> selectAllByPagination(int page, int itemSizePerPage);
-	void createOne(HotelRIO hotel);
+	List<HotelRIO> selectAll();	//전체데이터를 list에 담음
+	void createOne(HotelRIO hotel);	//DB에 insert하는 함수
 	void updateOne(String resv_date,int room,HotelRIO hotel);
 	void daleteOne(String resv_date,int room);
 	int deleteAll();
