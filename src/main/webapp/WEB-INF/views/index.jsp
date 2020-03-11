@@ -11,12 +11,12 @@
 
 </head>
 <body style="margin:0px; width :100%; height:100%;">
-
+<input type="hidden" id="contextPath" value="${pageContext.request.contextPath}">
 <!-- 헤더부분  -->
 <!-- 최상단 로고와 로그인 로그아웃 관리자 페이지가 나타나는 부분이다. 각 글자들을 해당하는 링크가 있다.  -->
 <header class="banner" style="display: flex;">
-	<div id="logo_div" ><a id="logo" href="/kopo/">joa hotel</a></div>
-	<div id="admin_div" ><a id="admin" href="/kopo/go_admin_allviewDB">관리자페이지</a></div>	
+	<div id="logo_div" ><a id="logo" href="${pageContext.request.contextPath}/">joa hotel</a></div>
+	<div id="admin_div" ><a id="admin" href="${pageContext.request.contextPath}/go_admin_allviewDB">관리자페이지</a></div>	
 	<div id="login_div"><a id="login_or_logout" href="#" onclick="login_or_logout()">login</a></div>
 </header>
 

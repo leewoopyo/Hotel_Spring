@@ -1,4 +1,4 @@
-package kr.ac.kopo;
+package kr.ac.Hotel;
 
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
@@ -30,10 +30,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mysql.cj.Session;
 
-import kr.ac.kopo.domain.HotelRIO;
-import kr.ac.kopo.dto.HotelSIO;
-import kr.ac.kopo.dto.ListSIO;
-import kr.ac.kopo.service.HotelService;
+import kr.ac.Hotel.domain.HotelRIO;
+import kr.ac.Hotel.dto.HotelSIO;
+import kr.ac.Hotel.dto.ListSIO;
+import kr.ac.Hotel.service.HotelService;
 
 
 /**

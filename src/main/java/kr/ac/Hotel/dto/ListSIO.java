@@ -1,4 +1,4 @@
-package kr.ac.kopo.dto;
+package kr.ac.Hotel.dto;
 
 public class ListSIO {
 	

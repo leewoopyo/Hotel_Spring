@@ -1,24 +1,62 @@
-package kr.ac.kopo.dto;
+package kr.ac.Hotel.domain;
 
 import java.util.Date;
 
-public class HotelSIO {
-	
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
+
+@Entity
+@Table(name = "resv")
+@IdClass(HotelRIO_Idclass.class)
+public class HotelRIO {
+
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+
+	@Column(name = "name")
 	private String name;
-	private Date resv_date;
-	private int room;
-	private String addr;
-	private String telnum;
-	private String in_name;
-	private String comment;
-	private Date write_date;
-	private int processing;
 	
-	public HotelSIO() {
+	@Id
+	@Type(type = "date")
+	@Column(name = "resv_date",columnDefinition = "DATE")
+	private Date resv_date;
+
+	@Id
+	@Column(name = "room",columnDefinition = "INT")
+	private int room;
+	
+	@Column(name = "addr")
+	private String addr;
+	
+	@Column(name = "telnum")
+	private String telnum;
+	
+	@Column(name = "in_name")
+	private String in_name;
+	
+	@Type(type="text")
+	@Column(name = "comment")
+	private String comment;
+	
+	@Type(type = "date")
+	@Column(name = "write_date")
+	private Date write_date;
+	
+	@Column(name = "processing")
+	private int processing;
+
+	
+	public HotelRIO() {
 		super();
 	}
 	
-	public HotelSIO(String name, Date resv_date, int room, String addr, String telnum, String in_name, String comment,
+	
+	public HotelRIO(String name, Date resv_date, int room, String addr, String telnum, String in_name, String comment,
 			Date write_date, int processing) {
 		super();
 		this.name = name;
@@ -105,5 +143,7 @@ public class HotelSIO {
 	}
 	
 	
-
+	
+	
+	
 }

@@ -13,7 +13,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springf
 
 <context:property-placeholder location="classpath*:META-INF/*.properties" />
 
-<context:component-scan base-package="kr.ac.kopo" />
+<context:component-scan base-package="kr.ac.Hotel" />
 
 <tx:annotation-driven />
 
@@ -27,7 +27,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springf
 <bean id="sessionFactory"
 class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 <property name="dataSource" ref="dataSource" />
-<property name="packagesToScan" value="kr.ac.kopo" />
+<property name="packagesToScan" value="kr.ac.Hotel" />
 <property name="hibernateProperties">
 <props>
 <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>

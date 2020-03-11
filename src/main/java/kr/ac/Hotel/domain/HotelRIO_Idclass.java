@@ -1,4 +1,4 @@
-package kr.ac.kopo.domain;
+package kr.ac.Hotel.domain;
 
 import java.io.Serializable;
 import java.util.Date;

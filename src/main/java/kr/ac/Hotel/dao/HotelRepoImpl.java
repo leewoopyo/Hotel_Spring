@@ -1,4 +1,4 @@
-package kr.ac.kopo.dao;
+package kr.ac.Hotel.dao;
 
 import java.sql.Statement;
 import java.util.Date;
@@ -15,8 +15,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import kr.ac.kopo.domain.HotelRIO;
-import kr.ac.kopo.domain.HotelRIO_Idclass;
+import kr.ac.Hotel.domain.HotelRIO;
+import kr.ac.Hotel.domain.HotelRIO_Idclass;
 
 @Transactional
 @Repository

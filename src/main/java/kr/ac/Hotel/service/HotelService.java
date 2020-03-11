@@ -1,11 +1,11 @@
-package kr.ac.kopo.service;
+package kr.ac.Hotel.service;
 
 import java.util.Date;
 import java.util.List;
 
-import kr.ac.kopo.domain.HotelRIO;
-import kr.ac.kopo.dto.HotelSIO;
-import kr.ac.kopo.dto.ListSIO;
+import kr.ac.Hotel.domain.HotelRIO;
+import kr.ac.Hotel.dto.HotelSIO;
+import kr.ac.Hotel.dto.ListSIO;
 
 public interface HotelService {
 	

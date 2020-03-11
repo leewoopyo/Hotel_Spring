@@ -23,7 +23,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="kr.ac.kopo" />
+	<context:component-scan base-package="kr.ac.Hotel" />
 	
 	<tx:annotation-driven />
 	

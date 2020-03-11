@@ -1,9 +1,9 @@
-package kr.ac.kopo.dao;
+package kr.ac.Hotel.dao;
 
 import java.util.Date;
 import java.util.List;
 
-import kr.ac.kopo.domain.HotelRIO;
+import kr.ac.Hotel.domain.HotelRIO;
 
 public interface HotelRepo {
 	

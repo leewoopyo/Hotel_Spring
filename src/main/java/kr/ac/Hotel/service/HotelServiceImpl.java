@@ -1,4 +1,4 @@
-package kr.ac.kopo.service;
+package kr.ac.Hotel.service;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -13,10 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.ReplaceOverride;
 import org.springframework.stereotype.Service;
 
-import kr.ac.kopo.dao.HotelRepo;
-import kr.ac.kopo.domain.HotelRIO;
-import kr.ac.kopo.dto.HotelSIO;
-import kr.ac.kopo.dto.ListSIO;
+import kr.ac.Hotel.dao.HotelRepo;
+import kr.ac.Hotel.domain.HotelRIO;
+import kr.ac.Hotel.dto.HotelSIO;
+import kr.ac.Hotel.dto.ListSIO;
 
 @Service
 public class HotelServiceImpl implements HotelService {
@@ -282,6 +282,7 @@ public class HotelServiceImpl implements HotelService {
 		repo.updateOne(resv_date,room,new HotelRIO(hotelSIO.getName(),hotelSIO.getResv_date(),hotelSIO.getRoom(),hotelSIO.getAddr(),hotelSIO.getTelnum(),hotelSIO.getIn_name(),hotelSIO.getComment(),hotelSIO.getWrite_date(),hotelSIO.getProcessing()));
 		
 	}
+	
 	//데이터 삭제하는 메소드
 	@Override
 	public void delete(String resv_date,int room) throws Exception {
